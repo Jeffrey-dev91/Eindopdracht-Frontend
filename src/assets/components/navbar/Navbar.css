@@ -1,0 +1,31 @@
+
+
+
+
+
+.navi-outer{
+
+
+background-color: lightgray;
+    font-size: 25px;
+    height: 80px;
+
+
+}
+.navi-inner li{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 50px;
+    padding: 20px;
+
+}
+
+
+
+ a{
+    list-style-type: none;
+    text-decoration: none;
+
+
+}
