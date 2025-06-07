@@ -1,0 +1,14 @@
+button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: orange;
+    color: white;
+    font-size: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 20px;
+
+}

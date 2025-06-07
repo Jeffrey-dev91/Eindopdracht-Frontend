@@ -1,0 +1,27 @@
+
+/*.nav-button {*/
+/*    padding: 8px 8px;*/
+/*    width: 100px;*/
+/*    border: 2px solid #0c285e;*/
+/*    background-color: #165eac;*/
+/*    color: white;*/
+/*    border-radius: 2px;*/
+/*    font-family: 'Rubik', 'Arial', sans-serif;*/
+/*    outline: none;*/
+/*}*/
+
+/*.nav-button:active {*/
+/*    box-shadow:*/
+/*            inset -2px -2px 3px rgba(255, 255, 255, 0.6),*/
+/*            inset 2px 2px 3px rgba(0, 0, 0, 0.6);*/
+
+/*}*/
+
+/*.nav-button:disabled {*/
+/*    background-color: darkgray;*/
+/*    cursor: not-allowed;*/
+/*}*/
+
+/*.nav-button .nav-button{*/
+/*    margin-left: 8px;*/
+/*}*/

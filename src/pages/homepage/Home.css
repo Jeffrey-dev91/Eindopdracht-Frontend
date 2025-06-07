@@ -1,0 +1,159 @@
+
+.header-container {
+    position: relative;
+    width: 100%;
+}
+
+.background-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+.home-content {
+    position: absolute;
+    top: 50px;
+    margin-left: 15%;
+    text-align: center;
+    color: orange;
+    z-index: 1;
+font-size: 50px;
+
+}
+
+.balk-1 {
+    padding: 10px;
+    font-size: 20px;
+    width: 30%;
+    border-radius: 40px;
+    margin-top: 80px;
+}
+
+.button-een {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+
+.overlay-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1;
+}
+
+
+.post-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent !important;
+    border-radius: 8px;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 200px;
+    box-sizing: border-box;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.park-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+
+.modal-close-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 20px 50px;
+    top: 60%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-close-button:hover {
+    background-color: #0056b3;
+}
