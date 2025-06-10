@@ -19,8 +19,9 @@ function Home() {
                 const response = await axios.get(
                     "https://developer.nps.gov/api/v1/parks?limit=474", {
                         headers: {
-                            "X-Api-Key": "uzHHE33UGURmm9IfC4s9c5c4KyfjhfFwKnEPJ0AJ",
+                            "X-Api-Key": import.meta.env.VITE_API_KEY,
                         },
+
                     }
                 );
                 setAllParks(response.data.data);
