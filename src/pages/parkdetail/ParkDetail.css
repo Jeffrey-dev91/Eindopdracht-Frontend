@@ -92,3 +92,12 @@
     .park-detail li {
         font-size: 16px;
     }
+
+
+.favorite-icon {
+    font-size: 28px;
+    cursor: pointer;
+    color: red;
+    margin-bottom: 10px;
+    user-select: none;
+}

@@ -1,56 +1,146 @@
-import Button from "../../assets/components/button/Button.jsx";
+
 import "./Login.css"
-import React from "react";
+import React, {useContext, useState} from "react";
+import axios from "axios";
+import {AuthContext} from "/src/assets/context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
+import Button from "../../assets/components/button/Button.jsx";
 import myImage from "../../assets/components/photos/Photo-1.png";
 
 
 
+
+
+
 function Login() {
-
-    // const navigate = useNavigate();
-    //
-    // const handleClick = () => {
-    //     navigate('/favorite'); // Verwijst naar /doelpagina binnen je app
-    // };
-
-    return (
-
-
-        <>
-
-            <main>
-                <div className="header-page">
-                    <img alt="image" width="100%" src={myImage}/>
-
-                </div>
+    const {login} = useContext(AuthContext);
+    const apiAuth = import.meta.env.VITE_API_URL_AUTH;
+    const apiKey = import.meta.env.VITE_API_KEY_NOVI_BACKEND;
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
+const navigate = useNavigate();
+const [isLoading, setLoading] = useState(false);
+const[error, setError] = useState(null);
 
 
-                <div className="formulier-container">
-                    <h2>Inloggen</h2>
-                    <form className="formulier-inside" action="/verwerk-formulier" method="post">
-                        <label htmlFor="naam">Gebruikersnaam:</label><br/>
-                        <input type="text" id="naam" name="naam" required/><br/><br/>
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-                        <label htmlFor="wachtwoord">Wachtwoord:</label><br/>
-                        <input type="text" id="wachtwoord" name="wachtwoord" required/><br/><br/>
+setLoading(true);
 
 
-                        <button className="button-twee" type="button">Inloggen</button>
+            try {
 
-                    </form>
-                </div>
+                const response = await axios.post(
+                    apiAuth,
+                    {
 
+             username,
+                        email,password
 
-            </main>
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Api-Key": apiKey,
 
+                        },
 
+                    }
+                );
 
+console.log(response);
+if(response.status === 200) {
+    login(response.data.jwt);
+    navigate("/favorite");
 
-
-
-</>
-)
 }
 
-export default Login
+            } catch (error) {
+                setError(`Er is iets mis gegaan. Error: ${error.message}`);
+                console.error(error);
+            }finally {
+                setLoading(false);
+            }
+
+        };
+
+
+        return (
+            <>
+
+
+                <header className="header-containers">
+                    <div className="background-image">
+                        <img src={myImage} alt="Background"/>
+                    </div>
+
+
+                    <div className="register-contents">
+                        <h2>Inloggen</h2>
+
+                        <form className="formulier-inlog" onSubmit={handleLogin}>
+
+                            <label>
+                                Username:
+                                <input
+                                    className="username-balk"
+                                    type="text"
+                                    name="username"
+                                    value={username}
+                                    onChange={(e) => {
+                                        setUsername(e.target.value);
+                                    }}
+                                    required
+                                />
+
+                            </label>
+                            <br/>
+                            <label>
+                                E-mail:
+                                <input
+                                    className="email-balk"
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+
+                                    }}
+                                    required
+                                />
+                            </label>
+
+
+                            <br/>
+
+                            <label>
+                                Wachtwoord:
+                                <input
+                                    className="password-balk"
+                                    type="password"
+                                    name="wachtwoord"
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+
+                                    }}
+                                    required
+                                />
+                            </label>
+
+                            <br/>
+
+                            <button type="submit" disabled={isLoading}>Inloggen</button>
+
+
+                        </form>
+
+                    </div>
+                </header>
+            </>
+        );
+}
+
+export default Login;

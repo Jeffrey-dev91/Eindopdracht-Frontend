@@ -11,15 +11,17 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState("");
     const [error, setError] = useState(null);
     const [noResults, setNoResults] = useState(false);
+    const apiParks = import.meta.env.VITE_API_KEY_PARK;
+    const apiParkUrl = import.meta.env.VITE_API_PARK_URL;
 
     useEffect(() => {
         const fetchAllParks = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    "https://developer.nps.gov/api/v1/parks?limit=474", {
+                    apiParkUrl, {
                         headers: {
-                            "X-Api-Key": import.meta.env.VITE_API_KEY,
+                            "X-Api-Key": apiParks,
                         },
 
                     }
@@ -34,13 +36,15 @@ function Home() {
         };
 
         fetchAllParks();
-    }, []);
+    }, [apiParkUrl, apiParks]);
 
 
     useEffect(() => {
         const trimmedSearch = searchTerm.trim().toLowerCase();
-        if (!trimmedSearch) {
+
+        if (!trimmedSearch || allParks.length ===0 ) {
             setPosts([]);
+            setNoResults(false)
             setError(null);
             return;
         }
@@ -97,14 +101,14 @@ function Home() {
             )}
 
 
-            <div className="overlay-grid">
+            <div className="overlay-grid-1">
                 {error && <p>{error}</p>}
 
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
                     posts.map((post) => (
-                        <div key={post.id} className="post-card">
+                        <div key={post.id} className="post-card-1">
                             <Link to={`/park/${post.parkCode}`} className="image-link">
                                 <div className="image-container">
 

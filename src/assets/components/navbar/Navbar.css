@@ -2,11 +2,13 @@
 
 
 
+a{
+    color:black;
+}
 
 .navi-outer{
 
-
-background-color: lightgray;
+    background-color: lightgray;
     font-size: 25px;
     height: 80px;
 
@@ -23,7 +25,7 @@ background-color: lightgray;
 
 
 
- a{
+a{
     list-style-type: none;
     text-decoration: none;
 

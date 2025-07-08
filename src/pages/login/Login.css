@@ -12,3 +12,16 @@ button {
     border-radius: 20px;
 
 }
+
+
+.formulier-inlog{
+    font-size: 30px;
+    margin-top: 150px;
+    padding: 10px;
+
+}
+.formulier-inlog input{
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 20px;
+}

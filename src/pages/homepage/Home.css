@@ -18,7 +18,7 @@
 .home-content {
     position: absolute;
     top: 50px;
-    margin-left: 15%;
+    margin-left: 20%;
     text-align: center;
     color: orange;
     z-index: 1;
@@ -43,7 +43,7 @@ font-size: 50px;
 }
 
 
-.overlay-grid {
+.overlay-grid-1 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
@@ -57,7 +57,7 @@ font-size: 50px;
 }
 
 
-.post-card {
+.post-card-1 {
     position: relative;
     display: flex;
     flex-direction: column;
