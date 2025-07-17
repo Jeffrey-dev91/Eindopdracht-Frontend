@@ -5,6 +5,28 @@
 # Amusement Parks USA - Eindopdracht Frontend NOVI Hogeschool
 
 
+
+## Inhoudsopgave
+
+1. Inleiding
+
+2. Hoe ziet de App eruit?
+
+3. Aan de examinator
+
+4. Benodigheden
+
+5. Applicatie installeren
+
+6. Het Github Amusement Parks USA project clonen
+
+7. De applicatie opstarten
+
+8. Contact
+
+
+
+
 ## Inleiding
 
 Ben je naar op zoek naar verschillende parken in de USA, dan is dit de app voor je!!
