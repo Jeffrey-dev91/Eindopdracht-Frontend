@@ -1,72 +1,82 @@
-.header-containers {
-    position: relative;
+
+.register-main {
     width: 100%;
-
-
+    height: 500px;
+margin-top: 20px;
 }
 
-.background-image img{
-    position: absolute;
-    height: auto;
+.register-background{
+    position: fixed;
     object-fit: cover;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
     z-index: -1;
 }
 
 
+.register-background img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-.register-contents {
+
+.register-content {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 25vh;
     text-align: center;
     color: orange;
-    margin-top: 0;
+
+
 }
-button {
+
+.button-register {
+    margin-top: 30%;
     background-color: orange;
     color: white;
     padding: 12px 24px;
     border: none;
-    border-radius: 6px;
-    font-size: 20px;
-    box-shadow: 0 2px 0 orange;
-    position: relative;
-    margin-top: 20%;
-    margin-left: 1%;
+    border-radius: 25px;
+    font-size: 25px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+   transition: 0.3s;
+z-index:10;
+
 }
 
-button:hover {
-    background-color: #ff9900;
+
+.button-register:hover {
+    transform: scale(1.1);
+
 }
 
-button:active {
+.button-register:active {
     box-shadow: 0 2px 0 white;
 }
 
-h2{
-    font-size: 120px;
+.register-content h2{
+    font-size: 100px;
     text-align: center;
-margin-top: 0;
-margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #ff6600;
 }
-
 .formulier-register{
     font-size: 30px;
     margin-top: 150px;
     padding: 10px;
-
 }
 .formulier-register input{
     font-size: 15px;
+margin-bottom: 20px;
     padding: 5px;
     border-radius: 20px;
+
 }
+

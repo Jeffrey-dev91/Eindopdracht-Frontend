@@ -1,78 +1,112 @@
 
+
 .header-container {
     position: relative;
     width: 100%;
+    height: 500px;
+    overflow: hidden;
+flex: 1;
 }
 
-.background-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    position: absolute;
+.home-background {
+    position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
+}
+
+.home-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 
 .home-content {
     position: absolute;
-    top: 50px;
-    margin-left: 20%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    color: orange;
+    color: #ff6600;
     z-index: 1;
-font-size: 50px;
-
+    font-size: 50px;
 }
+
 
 .balk-1 {
+
     padding: 10px;
     font-size: 20px;
-    width: 30%;
+    width: 50%;
     border-radius: 40px;
-    margin-top: 80px;
+    border: 2px solid orange;
+    outline: none;
 }
 
-.button-een {
-    padding: 10px;
+
+.button-home {
+    padding: 12px 24px;
     border: none;
-    background-color: #007bff;
+    background-color: orange;
     color: white;
-    border-radius: 5px;
+    border-radius: 25px;
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
+.button-home:hover{
+transform: scale(1.1);
+    background-color: #ff9800;
+}
+
+.button-home:active {
+    box-shadow: 0 2px 0 white;
+}
 
 .overlay-grid-1 {
     display: grid;
+    position: relative;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    padding: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
+    padding: 40px 20px;
     width: 100%;
-    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto 80px auto;
+    z-index: 0;
 }
-
 
 .post-card-1 {
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: transparent !important;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
-    padding: 0 !important;
-    margin: 0 !important;
     height: 200px;
-    box-sizing: border-box;
 }
+
+.park-name {
+    font-size: 20px;
+    border: 3px solid #0056b3;
+    padding: 30px;
+    border-radius: 30px;
+    text-align: center;
+    background-color: transparent;
+    color: darkorange;
+}
+
+.park-name:hover {
+
+    transform: scale(1.2)
+}
+
+
 
 .image-container {
     position: relative;
-    display: inline-block;
     width: 100%;
     height: 200px;
     border-radius: 8px;
@@ -85,17 +119,12 @@ font-size: 50px;
     object-fit: cover;
 }
 
-
 .overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0;
@@ -103,7 +132,6 @@ font-size: 50px;
     border-radius: 8px;
     padding: 10px;
 }
-
 
 .image-container:hover .overlay {
     opacity: 1;
@@ -113,18 +141,13 @@ font-size: 50px;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 10px;
 }
-
 
 
 
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -132,23 +155,24 @@ font-size: 50px;
     z-index: 999;
 }
 
-
 .modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    max-width: 400px;
-    width: 100%;
+    max-width: 50%;
 }
 
+.modal-content h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
 
 .modal-close-button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 20px 50px;
-    top: 60%;
+    padding: 15px 40px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -157,3 +181,4 @@ font-size: 50px;
 .modal-close-button:hover {
     background-color: #0056b3;
 }
+

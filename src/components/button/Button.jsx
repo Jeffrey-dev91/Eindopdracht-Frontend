@@ -2,12 +2,7 @@
 import "./Button.css"
 
 
-
-
-
-
-
-function Button({ children, clickHandler, disabled, type="button"}){
+function Button({ children, onClick, disabled, type="button", className = "" }) {
 
 
 
@@ -17,8 +12,8 @@ function Button({ children, clickHandler, disabled, type="button"}){
 
         <button
             type={type}
-            className="nav-button"
-            onClick={clickHandler}
+            className= {`nav-button ${className}`}
+            onClick={onClick}
             disabled={disabled}
         >
             {children}

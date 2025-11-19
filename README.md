@@ -37,7 +37,7 @@ Met deze handige app zoek je snel naar jouw parken en sla je ze op als favoriet 
 
 ## Hoe ziet de App eruit?
 
-![Amusement Parks USA ](./src/assets/components/photos/readmephoto.gif)
+![Amusement Parks USA ](src/assets/photos/readmefoto.gif)
 
 ## Aan de examinator
 

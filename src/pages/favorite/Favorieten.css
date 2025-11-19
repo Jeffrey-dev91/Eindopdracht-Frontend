@@ -1,10 +1,5 @@
 
-body {
 
-    margin: 0;
-    font-family: Arial, sans-serif;
-
-}
 
 .post-grid {
 
@@ -20,7 +15,7 @@ body {
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 1rem;
-        flex: 1 1 calc(33.333% - 2rem); /* 3 kolommen, rekening houdend met gap */
+        flex: 1 1 calc(33.333% - 2rem);
         box-sizing: border-box;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         display: flex;
@@ -29,11 +24,16 @@ body {
     }
 
 
-.park-image {
-    max-width: 100%;
-    height: auto;
-    margin: 1rem 0;
-    border-radius: 4px;
+.favorite-image {
+    position: fixed;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+
+
 }
 
 .extra-info {
@@ -51,35 +51,35 @@ body {
 }
 
 
-
-
 .favorieten-container  {
     padding: 2rem;
     text-align: center;
 }
 
 .favorieten-container h1{
-
+margin-bottom: 120px;
     font-size: 80px;
-    color: orange;
+    color: #ff6600;
 
 
 }
-
 
 .favorieten-lijst {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 2.5rem;
 }
 
 .favoriet-kaart {
-    border: 1px solid #ccc;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+border: 2px solid darkorange;
     border-radius: 10px;
     padding: 1rem;
-    width: 320px;
-    background-color: #f9f9f9;
+    width: 300px;
+    background-color: transparent;
 }
 
 .favoriet-kaart img {
@@ -87,47 +87,71 @@ body {
     margin-bottom: 10px;
 }
 
-.detail-link {
-    display: inline-block;
+.detail-link-button {
+    display: flex;
+    flex-wrap: wrap;
+   justify-content: center;
     margin-top: 0.5rem;
     text-decoration: none;
     color: #007bff;
+    font-size: 15px;
+    border: 3px solid orange;
+    border-radius: 15px;
+  background: transparent;
+   width: 60%;
+cursor: pointer;
 }
 
-.back-button {
+.detail-link-button:hover {
+transform: scale(1.5);
+transform-style: preserve-3d;
+
+}
+
+.no-favorite-button {
+
     display: inline-block;
     margin-top: 2rem;
     text-decoration: none;
     font-weight: bold;
-    color: orange;
-    font-size: 20px;
+    color: #007bff;
+    font-size: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
+
+.no-favorite-button:hover {
+
+    transform: scale(1.5);
+}
+
 
 .header-container-1 {
-    position: relative;
     width: 100%;
-    height: 10px;
-    overflow: hidden;
-    z-index: 0;
+    margin-top: 10px;
+
+
 }
 
-.background-image img {
+.favorite-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
 
 }
 
 .favorieten-container {
-    margin-bottom: 10px;
+    margin-top: 20px;
     position: relative;
     z-index: 1;
-    /*bottom: 200px;*/
-    /*padding: 20px;*/
+
 
 }
 
+.favoriet-kaart h3{
+
+    color: #ff6600;
+
+
+}

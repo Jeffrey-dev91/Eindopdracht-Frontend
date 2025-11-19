@@ -1,15 +1,13 @@
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
+.app-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
 
 
 }
+.page-content{
+    flex: 1;
 
-
-body{
-
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -1,146 +1,108 @@
-
-import "./Login.css"
+import "./Login.css";
 import React, {useContext, useState} from "react";
 import axios from "axios";
-import {AuthContext} from "/src/assets/context/AuthContext.jsx";
-import {useNavigate} from "react-router-dom";
-import Button from "../../assets/components/button/Button.jsx";
-import myImage from "../../assets/components/photos/Photo-1.png";
-
-
-
-
-
+import { AuthContext } from "/src/context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/button/Button.jsx";
+import myImage from "../../assets/photos/Photo-1.png";
 
 function Login() {
-    const {login} = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
     const apiAuth = import.meta.env.VITE_API_URL_AUTH;
     const apiKey = import.meta.env.VITE_API_KEY_NOVI_BACKEND;
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-const navigate = useNavigate();
-const [isLoading, setLoading] = useState(false);
-const[error, setError] = useState(null);
+    const [isLoading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
-setLoading(true);
 
 
-            try {
-
-                const response = await axios.post(
-                    apiAuth,
-                    {
-
-             username,
-                        email,password
-
+        try {
+            const response = await axios.post(
+                apiAuth,
+                { username,  password },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Api-Key": apiKey,
                     },
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-Api-Key": apiKey,
+                }
+            );
 
-                        },
-
-                    }
-                );
-
-console.log(response);
-if(response.status === 200) {
-    login(response.data.jwt);
-    navigate("/favorite");
-
-}
-
-            } catch (error) {
-                setError(`Er is iets mis gegaan. Error: ${error.message}`);
-                console.error(error);
-            }finally {
-                setLoading(false);
+            if (response.status === 200) {
+                login(response.data.jwt);
+                navigate("/favorite");
             }
-
-        };
-
-
-        return (
-            <>
-
-
-                <header className="header-containers">
-                    <div className="background-image">
-                        <img src={myImage} alt="Background"/>
-                    </div>
+        } catch (error) {
+            setError(`Er is iets mis gegaan met inloggen!`);
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
 
 
-                    <div className="register-contents">
-                        <h2>Inloggen</h2>
 
-                        <form className="formulier-inlog" onSubmit={handleLogin}>
 
-                            <label>
-                                Username:
+
+    };
+
+    return(
+
+        <main className="login-page">
+            <div className="login-image">
+                <img src={myImage} alt="Sfeervolle achtergrondafbeelding" />
+            </div>
+
+            <section className="login-section">
+                <h1>Inloggen</h1>
+
+                <form className="login-form" onSubmit={handleLogin}>
+                    <fieldset>
+                        <div className="input-group">
+                            <label htmlFor="username">Username:</label>
+                            <input
+                                id="username"
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                            <div className="input-group">
+
+                                <label htmlFor="password">Wachtwoord:</label>
                                 <input
-                                    className="username-balk"
-                                    type="text"
-                                    name="username"
-                                    value={username}
-                                    onChange={(e) => {
-                                        setUsername(e.target.value);
-                                    }}
-                                    required
-                                />
-
-                            </label>
-                            <br/>
-                            <label>
-                                E-mail:
-                                <input
-                                    className="email-balk"
-                                    type="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => {
-                                        setEmail(e.target.value);
-
-                                    }}
-                                    required
-                                />
-                            </label>
-
-
-                            <br/>
-
-                            <label>
-                                Wachtwoord:
-                                <input
-                                    className="password-balk"
+                                    id="password"
                                     type="password"
                                     name="wachtwoord"
                                     value={password}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-
-                                    }}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
-                            </label>
+                            </div>
+                    </fieldset>
 
-                            <br/>
+                    <Button onClick={onclick}
 
-                            <button type="submit" disabled={isLoading}>Inloggen</button>
+                            type="submit" disabled={isLoading}
+                        className="button-login">
+                        {isLoading ? "Bezig met inloggen..." : "Inloggen"}
+                    </Button>
 
-
-                        </form>
-
-                    </div>
-                </header>
-            </>
-        );
+                    {error && <p className="error-message" role="alert">{error}</p>}
+                </form>
+            </section>
+        </main>
+    );
 }
 
 export default Login;

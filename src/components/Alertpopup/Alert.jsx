@@ -1,5 +1,5 @@
 import React from "react";
-import "/src/assets/components/Alertpopup/Alert.css";
+import "/src/components/Alertpopup/Alert.css";
 
 
 

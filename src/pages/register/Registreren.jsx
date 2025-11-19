@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import Alert from "/src/assets/components/Alertpopup/Alert.jsx";
-import myImage from "/src/assets/components/photos/Photo-1.png";
+import Alert from "/src/components/Alertpopup/Alert.jsx";
+import myImage from "/src/assets/photos/Photo-1.png";
 import "./Registreren.css";
-
+import Button from "../../components/button/Button.jsx";
 
 function Registreren() {
     const [username, setUsername] = useState("");
@@ -21,8 +21,6 @@ function Registreren() {
 
     const handleRegisteren = async (e) => {
         e.preventDefault();
-
-
         setUsernameError("");
         setEmailError("");
         setPasswordError("");
@@ -30,151 +28,115 @@ function Registreren() {
         setMeldingType("");
 
         try {
-            const response = await axios.post(
-               apiUrl,
-                { username, email, password },
+            await axios.post(
+                apiUrl,
+                {username, email, password},
                 {
                     headers: {
                         "Content-Type": "application/json",
                         "X-Api-Key": apiKey,
                     },
                 }
+            );
 
-            )
-
-            console.log("Registratie succesvol:", response.data);
-            setMelding("Registratie gelukt!");
+            setMelding(`Registratie gelukt!`);
             setMeldingType("success");
         } catch (error) {
-            console.log("Complete error object:", error);
-            console.log("error.response:", error.response);
-            console.log("error.response.data:", error.response?.data);
-            console.log("error.response.data.message:", error.response?.data?.message);
+            const status = error.response?.status;
+            const field = error.response?.data?.field;
+            const message = error.response?.data?.message || error.message || "Onbekende fout";
 
-
-            let message = "";
-
-            if (error.response?.data?.message) {
-                message = error.response.data.message;
-            } else if (error.response?.data) {
-                if (typeof error.response.data === "string") {
-                    message = error.response.data;
-                } else if (typeof error.response.data === "object") {
-                    message = JSON.stringify(error.response.data);
+            if (status === 409) {
+                if (field === "email") setEmailError(message);
+                else if (field === "username") setUsernameError(message);
+                else {
+                    setMelding("Er bestaat al een gebruiker met dezelfde gegevens.");
+                    setMeldingType("error");
                 }
             } else {
-                message = error.message || "Onbekende fout";
-            }
-
-            const msg = message.toLowerCase();
-
-            let isRelevantError = false;
-
-            if (
-                msg.includes("gebruikersnaam") ||
-                msg.includes("username") ||
-                msg.includes("naam bestaat") ||
-                msg.includes("naam is al in gebruik")
-            ) {
-                setUsernameError(message);
-                console.error("Fout bij gebruikersnaam:", message);
-                isRelevantError = true;
-            } else if (
-                msg.includes("email") ||
-                msg.includes("e-mailadres") ||
-                msg.includes("emailadres") ||
-                msg.includes("al geregistreerd") ||
-                msg.includes("already exists")
-            ) {
-                setEmailError(message);
-                console.error("Fout bij email:", message);
-                isRelevantError = true;
-            } else if (
-                msg.includes("wachtwoord") ||
-                msg.includes("password") ||
-                msg.includes("minimaal") ||
-                msg.includes("tekens") ||
-                msg.includes("too short")
-            ) {
-                setPasswordError(message);
-                console.error("Fout bij wachtwoord:", message);
-                isRelevantError = true;
-            }
-
-            if (!isRelevantError) {
-                console.error("Niet-herkende fout:", message);
-                setMelding(message);
-                setMeldingType("error");
+                const msg = message.toLowerCase();
+                if (msg.includes("gebruikersnaam") || msg.includes("username")) setUsernameError(message);
+                else if (msg.includes("email") || msg.includes("e-mailadres")) setEmailError(message);
+                else if (msg.includes("wachtwoord") || msg.includes("password")) setPasswordError(message);
+                else {
+                    setMelding(message);
+                    setMeldingType("error");
+                }
             }
         }
     };
+        return (
+            <>
+                <main className="register-main">
+                    <div className="header-container-2">
+                        <div className="register-background">
+                            <img src={myImage} alt="A scenic background"/>
+                        </div>
+                    </div>
 
-    return (
-        <>
-            <header className="header-containers">
-                <div className="background-image">
-                    <img src={myImage} alt="Background" />
-                </div>
 
-                <div className="register-contents">
-                    <h2>Registreren</h2>
+                    <section className="register-content">
+                        <h2>Registreren</h2>
 
-                    <form className="formulier-register" onSubmit={handleRegisteren}>
-                        <label>
-                            Username:
-                            <input
-                                className="naambalk"
-                                type="text"
-                                name="naam"
-                                value={username}
-                                onChange={(e) => {
-                                    setUsername(e.target.value);
-                                    setUsernameError("");
-                                }}
-                                required
-                            />
-                        </label>
-                        {usernameError && <p style={{ color: "red" }}>{usernameError}</p>}
+                        <form
+                            className="formulier-register"
+                            onSubmit={handleRegisteren}
+                            aria-labelledby="registratie-formulier"
+                        >
+                            <fieldset>
+                                <div>
+                                    <label htmlFor="username">Username:</label>
+                                    <input
+                                        id="username"
+                                        type="text"
+                                        value={username}
+                                        onChange={(e) => {
+                                            setUsername(e.target.value);
+                                            setUsernameError("");
+                                        }}
+                                        required
+                                        aria-describedby="username-error"
+                                    />
+                                    {usernameError &&
+                                        <p id="username-error" className="error-message">{usernameError}</p>}
+                                </div>
 
-                        <br />
+                                <div>
+                                    <label htmlFor="email">E-mail:</label>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                            setEmailError("");
+                                        }}
+                                        required
+                                        aria-describedby="email-error"
+                                    />
+                                    {emailError && <p id="email-error" className="error-message">{emailError}</p>}
+                                </div>
 
-                        <label>
-                            E-mail:
-                            <input
-                                className="email-balk"
-                                type="email"
-                                name="email"
-                                value={email}
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                    setEmailError("");
-                                }}
-                                required
-                            />
-                        </label>
-                        {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+                                <div>
+                                    <label htmlFor="password">Wachtwoord:</label>
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                            setPasswordError("");
+                                        }}
+                                        required
+                                        aria-describedby="password-error"
+                                    />
+                                    {passwordError &&
+                                        <p id="password-error" className="error-message">{passwordError}</p>}
+                                </div>
 
-                        <br />
-
-                        <label>
-                            Wachtwoord:
-                            <input
-                                className="password-balk"
-                                type="password"
-                                name="wachtwoord"
-                                value={password}
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                    setPasswordError("");
-                                }}
-                                required
-                            />
-                        </label>
-                        {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
-
-                        <br />
-
-                        <button type="submit">Registreer</button>
+                                <Button type="submit" className="button-register">Registreer</Button>
+                            </fieldset>
+                        </form>
 
                         <Alert
                             message={melding}
@@ -184,11 +146,15 @@ function Registreren() {
                                 setMeldingType("");
                             }}
                         />
-                    </form>
-                </div>
-            </header>
-        </>
-    );
-}
+                    </section>
+
+                </main>
+
+
+            </>
+
+        );
+    }
+
 
 export default Registreren;

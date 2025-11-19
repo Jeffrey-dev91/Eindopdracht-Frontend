@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "/src/assets/context/AuthContext.jsx";
+import { AuthContext } from "/src/context/AuthContext.jsx";
 
 
 

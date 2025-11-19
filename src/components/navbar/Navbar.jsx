@@ -32,26 +32,24 @@ const {isAuth, logout} = useContext(AuthContext);
         <nav className="navi-outer">
             <div className="navi-inner">
                 <ul>
+
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/registreer">Registreer</Link></li>
+                    <li><a href="#" onClick={handleFavoritesClick}>Favorieten</a></li>
                     <li>
-                   <Link to="/">Home</Link>
-                   <Link to="/registreer">Registreer</Link>
-
-
-                   <a href="#" onClick={handleFavoritesClick}>Favorieten</a>
-
-                        { isAuth ? (
-                        <Link
-                            to="#"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleLogout();
-                            }}
-                            style={{ cursor: "pointer", color: "purple", textDecoration: "none" }}
-                        >
-                            Uitloggen
-                        </Link>
+                        {isAuth ? (
+                            <Link
+                                to="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleLogout();
+                                }}
+                                style={{cursor: "pointer", color: "purple", textDecoration: "none"}}
+                            >
+                                Uitloggen
+                            </Link>
                         ) : (
-                        <Link to="/login">Inloggen</Link>
+                            <Link to="/login">Inloggen</Link>
                         )}
 
                     </li>

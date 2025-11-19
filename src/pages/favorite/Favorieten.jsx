@@ -1,65 +1,91 @@
-import React, {useContext} from "react";
-import {Link} from "react-router-dom";
-import { AuthContext } from "../../assets/context/AuthContext.jsx";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import { FavoritesContext } from "../../context/FavoritesContext.jsx";
 import "/src/pages/favorite/Favorieten.css";
-import myImage from "../../assets/components/photos/Photo-1.png";
+import myImage from "../../assets/photos/Photo-1.png";
+import Button from "../../components/button/Button.jsx";
 
 function Favorieten() {
-    const { favorites, isAuth } = useContext(AuthContext);
+    const { isAuth } = useContext(AuthContext);
+    const { favorites } = useContext(FavoritesContext);
+    const navigate = useNavigate();
 
 
+    function handleClick() {
+        navigate("/");
+    }
 
+    function handleClickPark(parkCode) {
+        navigate(`/park/${parkCode}`);
+    }
 
     return (
         <>
-
             <header className="header-container-1">
-                <div className="background-image">
-                    <img src={myImage} alt="Background"/>
+                <div className="favorite-image">
+                    <img src={myImage} alt="Sfeervolle achtergrond van de favoriete parken" />
                 </div>
             </header>
 
+            <main className="favorieten-container">
 
-            <div className="favorieten-container">
+
                 {!isAuth ? (
-                    <>
-                        <h2>Je bent niet ingelogd.</h2>
+                    <section aria-labelledby="login-header">
+                        <h2 id="login-header">Je bent niet ingelogd.</h2>
                         <p>
                             <Link to="/login">Log in</Link> om je favoriete parken te bekijken.
                         </p>
-                    </>
+                    </section>
                 ) : favorites.length === 0 ? (
-                    <>
-                        <h1>Mijn Favoriete Parken</h1>
+                    <section aria-labelledby="no-favorites-header">
+                        <h1 id="no-favorites-header">Mijn Favoriete Parken</h1>
                         <p>Je hebt nog geen favoriete parken toegevoegd.</p>
-                        <Link to="/" className="back-button">← Terug naar Home</Link>
-                    </>
+
+                        <Button
+                            onClick={handleClick}
+                            className="no-favorite-button"
+                        >
+                            ← Terug naar Home
+                        </Button>
+                    </section>
                 ) : (
-                    <>
-                        <h1>Mijn Favoriete Parken</h1>
+                    <section aria-labelledby="favorites-header">
+                        <h1 id="favorites-header">Mijn Favoriete Parken</h1>
                         <div className="favorieten-lijst">
                             {favorites.map((park) => (
-                                <div key={park.parkCode} className="favoriet-kaart">
+                                <article key={park.parkCode} className="favoriet-kaart">
                                     <h3>{park.fullName}</h3>
+
                                     {park.image && (
                                         <img
                                             src={park.image}
                                             alt={park.fullName}
-                                            width="300"
+                                            width="250"
+                                            height="250"
                                         />
                                     )}
-                                    <Link to={`/park/${park.parkCode}`} className="detail-link">
-                                        Bekijk details
-                                    </Link>
-                                </div>
+
+                                    <Button
+                                        onClick={() => handleClickPark(park.parkCode)}
+                                        className="detail-link-button"
+                                    >
+                                        Bekijk Park
+                                    </Button>
+                                </article>
                             ))}
                         </div>
-                        <Link to="/" className="back-button">← Terug naar Home</Link>
-                    </>
 
+                        <Button
+                            onClick={handleClick}
+                            className="no-favorite-button"
+                        >
+                            ← Terug naar Home
+                        </Button>
+                    </section>
                 )}
-
-            </div>
+            </main>
         </>
     );
 }

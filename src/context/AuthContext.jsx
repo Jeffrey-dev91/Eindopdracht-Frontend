@@ -1,25 +1,20 @@
-// AuthContextProvider.jsx
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FavoritesContext } from "./FavoritesContext.jsx"; // import FavoritesContext
 
 export const AuthContext = createContext(null);
 
 function AuthContextProvider({ children }) {
-    const [auth, setAuth] = useState({
-        isAuth: false,
-        user: null,
-    });
-
-    const [favorites, setFavorites] = useState([]);
+    const [auth, setAuth] = useState({ isAuth: false, user: null });
     const navigate = useNavigate();
+    const SESSION_DURATION = 30 * 60 * 1000;
 
+    const { clearFavorites } = useContext(FavoritesContext); // haal clearFavorites op
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-        setFavorites(storedFavorites);
 
         if (token) {
             try {
@@ -54,6 +49,16 @@ function AuthContextProvider({ children }) {
         }
     }, []);
 
+    useEffect(() => {
+        if (!auth.isAuth) return;
+
+        const logoutTimer = setTimeout(() => {
+            logout();
+        }, SESSION_DURATION);
+
+        return () => clearTimeout(logoutTimer);
+    }, [auth.isAuth]);
+
     const login = async (jwtToken) => {
         try {
             localStorage.setItem("token", jwtToken);
@@ -70,10 +75,7 @@ function AuthContextProvider({ children }) {
             const userData = response.data;
             setAuth({
                 isAuth: true,
-                user: {
-                    username: userData.username,
-                    email: userData.email,
-                },
+                user: { username: userData.username, email: userData.email },
             });
             navigate("/favorite");
         } catch (err) {
@@ -82,24 +84,10 @@ function AuthContextProvider({ children }) {
     };
 
     const logout = () => {
-
         localStorage.removeItem("token");
         setAuth({ isAuth: false, user: null });
+        clearFavorites(); // <-- reset favorites bij logout
         navigate("/login");
-    };
-
-    const addFavorite = (park) => {
-        if (!favorites.some((item) => item.parkCode === park.parkCode)) {
-            const newFavorites = [...favorites, park];
-            setFavorites(newFavorites);
-            localStorage.setItem("favorites", JSON.stringify(newFavorites));
-        }
-    };
-
-    const removeFavorite = (parkCode) => {
-        const newFavorites = favorites.filter((item) => item.parkCode !== parkCode);
-        setFavorites(newFavorites);
-        localStorage.setItem("favorites", JSON.stringify(newFavorites));
     };
 
     const contextData = {
@@ -107,9 +95,6 @@ function AuthContextProvider({ children }) {
         user: auth.user,
         login,
         logout,
-        favorites,
-        addFavorite,
-        removeFavorite,
     };
 
     return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
